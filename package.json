@@ -1,0 +1,20 @@
+{
+  "name": "queue-bot",
+  "version": "1.0.0",
+  "description": "A bot that handles queues for among us lobbies.",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=stable nodemon index.js"
+  },
+  "author": "Rehkloos",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "cross-env": "^7.0.2",
+    "discord.js": "^12.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.0",
+    "nodemon": "^2.0.4"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Among Us Bot",
+  "description": " A Discord bot for organizing Among US custom games.",
+  "repository": "https://github.com/rehkloos/imposter-bot",
+  "logo": "https://avatars1.githubusercontent.com/u/1954355?s=460&v=4",
+  "env": {
+    "TOKEN": {
+      "description": "Discord Bot Token (https://discord.com/developers/applications)"
+    }
+  }
+}
