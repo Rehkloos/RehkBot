@@ -16,7 +16,7 @@ app.listen(port, () => {
 
 client.on('ready', async () => {
   await client.user.setActivity("Among Us", {
-      type: "PLAYING"
+    type: "PLAYING"
   })
   L.log(`Logged in as ${client.user.tag}`);
 });
@@ -38,7 +38,13 @@ client.on('guildMemberAdd', member => {
 client.on('message', message => {
   let args = message.content.substring(PREFIX.length).split(" ");
   switch (args[0]) {
-    // adds user to the queue - if already on it, sends them a message with their position
+    case 'ping':
+      // Ping the bot and get the delay
+      message.channel.send("Pinging...").then((msg) => {
+        msg.edit("Ping: " + (Date.now() - msg.createdTimestamp + " ms"));
+      });
+      break;
+      // adds user to the queue - if already on it, sends them a message with their position
     case 'queue':
       message.channel.bulkDelete(1);
       if (map.has(message.author.username)) {
@@ -81,11 +87,11 @@ client.on('message', message => {
         .setTitle('**CURRENT QUEUE**')
         .addField('TOP OF QUEUE', q.String());
       message.author.send(displayembed);
-      message.channel.bulkDelete(1);
+      //message.channel.bulkDelete(1);
       break;
       // clears the queue
     case 'clearall':
-      message.channel.bulkDelete(1);
+      //message.channel.bulkDelete(1);
       q.clearAll();
       message.reply("Queue has been cleared.").then(msg => {
         msg.delete({
@@ -95,7 +101,7 @@ client.on('message', message => {
       break;
       // gives information on the other commands
     case 'help':
-      message.channel.bulkDelete(1);
+      //message.channel.bulkDelete(1);
       const helpembed = new Discord.MessageEmbed()
         .setTitle('Queue Bot Help')
         .addField('**COMMANDS:**', "`!queue <description>` - adds you to the queue with <description>\n`!dequeue` - removes you from the queue, only used by specified users (if not specified, removes yourself from the queue)\n`!display` - shows the current queue (and description of each entry, if you have permission\n`!clearall` - priveliged command that clears the queue\n`!help` - displays a list of commands; you're reading it right now")
