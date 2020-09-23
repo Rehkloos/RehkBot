@@ -3,11 +3,12 @@ const client = new Discord.Client();
 const express = require("express");
 const L = require('./utils/logger');
 const commandsList = require("./commands.json");
-const Queue = require('./queuehandler').Queue;
+const Queue = require('./handlers/queuehandler').Queue;
 require('dotenv').config();
 
 
 const token = process.env.TOKEN;
+const roleID = process.env.ROLE;
 
 const app = express();
 const port = process.env.PORT || '0.0.0.0';
@@ -33,6 +34,11 @@ var map = new Map();
 client.on('message', message => {
   let args = message.content.substring(PREFIX.length).split(" ");
 
+  setTimeout(async () => { // clean queue after 6 hours
+    q.clear();
+    map.clear();
+  }, 1000 * 60 * 60 * 6);
+
   switch (args[0]) {
     case 'ping':
       // Ping the bot and get the delay
@@ -55,13 +61,13 @@ client.on('message', message => {
     break;
     // sends a message to the dequeuer with who was dequeued - in the future, it would check for role/position in the server
   case 'dequeue': {
-    //message.channel.bulkDelete(1);
+    message.channel.bulkDelete(1);
     if (true) {
       if (q.getLength() > 0) message.channel.send('You have dequeued ' + q.peek() + '.');
       else message.channel.send('There is no one in the queue.');
       var user = '' + q.peek();
       user = user.substring(user.indexOf('**') + 2, user.lastIndexOf('**'));
-      //user.send('You have been dequeued by ' + message.author.username + '!');
+      user.send('You have been dequeued by ' + message.author.username + '!');
       map.delete(user);
       message.channel.send("Attempting to move " + user + '. In the future, this should only work if you have permissions, and would change the voice chat of the dequeued person.').then(msg => {
         msg.delete({
@@ -85,25 +91,33 @@ client.on('message', message => {
       .setTitle('**CURRENT QUEUE**')
       .addField('TOP OF QUEUE', q.String())
       .setColor(0xDC143C);
-    //message.channel.send(displayembed);
     message.channel.send(displayembed).then(msg => {
       msg.delete({
         timeout: 1000 * 60 * 1 // delete after one minute
       })
     })
   }
-  //message.channel.bulkDelete(1);
   break;
   // clears the queue
-  case 'clearall': {
-    //message.channel.bulkDelete(1);
-    //q.clearAll();
-    q.clear();
-    message.channel.send("Queue has been cleared.").then(msg => {
-      msg.delete({
-        timeout: 3000
-      })
-    });
+  case 'clear': {
+    message.channel.bulkDelete(1);
+
+    if (message.member.guild.me.hasPermission(['MANAGE_CHANNELS', 'MANAGE_MESSAGES'])) { // first check if user has permissions to MANAGE_MESSAGES
+      q.clear();
+      map.clear();
+      message.channel.send("Queue has been cleared.").then(msg => {
+        msg.delete({
+          timeout: 3000
+        })
+      });
+    } else if (!message.member.guild.me.hasPermission(['MANAGE_CHANNELS', 'MANAGE_MESSAGES'])) {
+      message.channel.send(`You dont have permissions to run this command`).then(msg => {
+          msg.delete({
+            timeout: 10000
+          });
+        })
+        .catch(console.error);
+    }
   }
   break;
   case 'usage': {
@@ -260,7 +274,51 @@ client.on('message', message => {
     message.channel.send(helpEmbed);
   }
   break;
+
+  case "embed":
+    if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send("You need the **MANAGE_GUILD** permission to do this!")
+    // Get your #self-roles channel id here.
+
+    // Make the embed, and send it.
+    const embed = new Discord.MessageEmbed()
+      .setColor(0xDC143C)
+      .setAuthor("Pick your role")
+      .setDescription(`👍: "among_us"`)
+    message.channel.send(embed).then(async msg => {
+      await msg.react("👍");
+    })
+    break;
   }
 })
+
+// adding roles via reactions in an uncached message
+client.on('messageReactionAdd', (reaction, user) => {
+  const {
+    name
+  } = reaction.emoji;
+  const member = reaction.message.guild.members.cache.get(user.id);
+  switch (name) {
+    case '👍': // Javascript
+      member.roles.add(roleID);
+      break;
+    default:
+      break;
+  }
+});
+
+// removing roles
+client.on('messageReactionRemove', (reaction, user) => {
+  const {
+    name
+  } = reaction.emoji;
+  const member = reaction.message.guild.members.cache.get(user.id);
+  switch (name) {
+    case '👍': // Javascript
+      member.roles.remove(roleID);
+      break;
+    default:
+      break;
+  }
+});
 
 client.login(token);

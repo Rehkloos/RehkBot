@@ -6,6 +6,9 @@
   "env": {
     "TOKEN": {
       "description": "Discord Bot Token (https://discord.com/developers/applications)"
+    },
+    "roleID": {
+      "description": "create role in your server > right click role for Copy ID > paste it here"
     }
   }
 }
