@@ -292,14 +292,14 @@ client.on('message', message => {
 })
 
 // adding roles via reactions in an uncached message
-client.on('messageReactionAdd', (reaction, user) => {
+client.on('messageReactionAdd', async (reaction, user) => {
   const {
     name
   } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
   switch (name) {
     case '👍': // Javascript
-      member.roles.add(roleID);
+      await member.roles.add(roleID);
       break;
     default:
       break;
@@ -307,14 +307,14 @@ client.on('messageReactionAdd', (reaction, user) => {
 });
 
 // removing roles
-client.on('messageReactionRemove', (reaction, user) => {
+client.on('messageReactionRemove', async (reaction, user) => {
   const {
     name
   } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
   switch (name) {
     case '👍': // Javascript
-      member.roles.remove(roleID);
+      await member.roles.remove(roleID);
       break;
     default:
       break;
