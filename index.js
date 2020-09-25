@@ -18,7 +18,7 @@ app.listen(port, () => {
 });
 
 client.on('ready', async () => {
-  await client.user.setActivity("Among Us", {
+  await client.user.setActivity(`Among Us | on ${client.guilds.cache.size} servers`, {
     type: "PLAYING"
   })
   L.log(`Logged in as ${client.user.tag}`);
@@ -29,15 +29,11 @@ const PREFIX = '!';
 
 var q = new Queue();
 var map = new Map();
+var alreadyMuted = false;
 
 
 client.on('message', message => {
   let args = message.content.substring(PREFIX.length).split(" ");
-
-  setTimeout(async () => { // clean queue after 6 hours
-    q.clear();
-    map.clear();
-  }, 1000 * 60 * 60 * 6);
 
   switch (args[0]) {
     case 'ping':
@@ -50,13 +46,22 @@ client.on('message', message => {
     case 'queue': {
       message.channel.bulkDelete(1);
       if (map.has(message.author.username)) {
-        message.channel.send('You are already on the queue. You are ' + map.get(message.author.username) + ' in the queue.');
+        message.channel.send('You are already on the queue. You are ' + map.get(message.author.username) + ' in the queue.').then(msg => {
+          msg.delete({
+            timeout: 3000
+          })
+        });
       } else {
         var description = args[1] ? ' - ' + args.slice(1, args.length).join(' ') : '';
         q.enqueue('**' + message.author.username + '**' + description);
         map.set(message.author.username, q.getLength());
         message.channel.send('You (' + message.author.username + ') have been queued! You are number ' + q.getLength() + ' on the list.');
+        L.log(map.size);
       }
+      setTimeout(async () => { // clean queue after 6 hours
+        q.clear();
+        map.clear();
+      }, 1000 * 60 * 60 * 6);
     }
     break;
     // sends a message to the dequeuer with who was dequeued - in the future, it would check for role/position in the server
@@ -66,8 +71,8 @@ client.on('message', message => {
       if (q.getLength() > 0) message.channel.send('You have dequeued ' + q.peek() + '.');
       else message.channel.send('There is no one in the queue.');
       var user = '' + q.peek();
-      user = user.substring(user.indexOf('**') + 2, user.lastIndexOf('**'));
-      user.send('You have been dequeued by ' + message.author.username + '!');
+      //user = user.substring(user.indexOf('**') + 2, user.lastIndexOf('**'));
+      //user.send('You have been dequeued by ' + message.author.username + '!');
       map.delete(user);
       message.channel.send("Attempting to move " + user + '. In the future, this should only work if you have permissions, and would change the voice chat of the dequeued person.').then(msg => {
         msg.delete({
@@ -86,7 +91,7 @@ client.on('message', message => {
   }
   break;
   // displays the queue
-  case 'display': {
+  case 'list': {
     const displayembed = new Discord.MessageEmbed()
       .setTitle('**CURRENT QUEUE**')
       .addField('TOP OF QUEUE', q.String())
@@ -175,18 +180,7 @@ client.on('message', message => {
   break;
   case "overlay": {
     if (message.member.voice.channel) {
-      const overlayEmbed = new Discord.MessageEmbed()
-        .setColor(0xDC143C)
-        .setTitle(`Overlay for ${message.member.voice.channel.name}`)
-        .setURL(`https://streamkit.discord.com/overlay/voice/${message.member.voice.channel.guild.id}/${message.member.voice.channel.id}?icon=false&online=false&logo=white&text_color=%23ffffff&text_size=28&text_outline_color=%23000000&text_outline_size=0&text_shadow_color=%23000000&text_shadow_size=0&bg_color=%231e2124&bg_opacity=0&bg_shadow_color=%23000000&bg_shadow_size=0&invite_code=jreTYZS&limit_speaking=true&small_avatars=false&hide_names=false&fade_chat=0`)
-        .setDescription("Create a browser capture and set the URL to:\n\nhttps://streamkit.discord.com/overlay/voice/${message.member.voice.channel.guild.id}/${message.member.voice.channel.id}?icon=false&online=false&logo=white&text_color=%23ffffff&text_size=28&text_outline_color=%23000000&text_outline_size=0&text_shadow_color=%23000000&text_shadow_size=0&bg_color=%231e2124&bg_opacity=0&bg_shadow_color=%23000000&bg_shadow_size=0&invite_code=jreTYZS&limit_speaking=true&small_avatars=false&hide_names=false&fade_chat=0")
-        .setTimestamp()
-        .setFooter(
-          `Requested by ${message.author.username}`,
-          message.author.avatarURL
-        );
-
-      message.channel.send(overlayEmbed)
+      message.channel.send(`**Overlay for ${message.member.voice.channel} voice channel:**\n\nhttps://streamkit.discord.com/overlay/voice/${message.member.voice.channel.guild.id}/${message.member.voice.channel.id}?icon=false&online=false&logo=white&text_color=%23ffffff&text_size=28&text_outline_color=%23000000&text_outline_size=0&text_shadow_color=%23000000&text_shadow_size=0&bg_color=%231e2124&bg_opacity=0&bg_shadow_color=%23000000&bg_shadow_size=0&invite_code=jreTYZS&limit_speaking=true&small_avatars=false&hide_names=false&fade_chat=0`)
     } else {
       message.channel.send("**Error:** Please join a voice channel.")
     }
@@ -224,7 +218,8 @@ client.on('message', message => {
     const mapsEmbed = new Discord.MessageEmbed()
       .setTitle('All the Among Us maps')
       .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.HCuyxDU5qqVDlpp0FnPVJwAAAA%26pid%3DApi&f=1')
-      .setFooter('Bot made by Rehkloos. Check out my website at https://rehkloos.com', 'https://avatars1.githubusercontent.com/u/1954355?s=460&v=4')
+      .setFooter(`Requested by ${message.author.username}`,
+        message.author.avatarURL)
       .setColor(0xDC143C)
       .addFields({
         name: 'Skeled',
@@ -274,19 +269,120 @@ client.on('message', message => {
     message.channel.send(helpEmbed);
   }
   break;
-
-  case "embed":
+  case "role":
     if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send("You need the **MANAGE_GUILD** permission to do this!")
-    // Get your #self-roles channel id here.
-
-    // Make the embed, and send it.
     const embed = new Discord.MessageEmbed()
       .setColor(0xDC143C)
-      .setAuthor("Pick your role")
-      .setDescription(`👍: "among_us"`)
+      .setAuthor(`Click reaction to be assigned "amongus" role`)
+      .setDescription(`👍: "amongus"`)
     message.channel.send(embed).then(async msg => {
       await msg.react("👍");
     })
+    break;
+  case "code":
+    message.delete();
+    let re = new RegExp("^[A-Za-z]+");
+    if (args[1] !== undefined) {
+      if (args[1].length === 4 || args[1].length === 6) {
+        // 6 digit codes now (at least on test branch)
+        if (
+          args[2] === "NA" ||
+          args[2] === "na" ||
+          args[2] === "EU" ||
+          args[2] === "eu" ||
+          args[2] === "ASIA" ||
+          args[2] === "asia"
+        ) {
+          if (args[1].match(re)) {
+            if (message.member.voice.channel) {
+              const codeEmbed = new Discord.MessageEmbed()
+                .setColor(0xDC143C)
+                .setTitle(
+                  `${args[1].toUpperCase()} on ${args[2].toUpperCase()}`
+                )
+                .setDescription(
+                  `The code is ${args[1].toUpperCase()} on ${args[2].toUpperCase()}.\n\nCheck the voice channel name too!\n*sometimes the voice channel name wont change due to being rate limited*`
+                ) // make this look better
+                .setTimestamp()
+                .setFooter(
+                  `Requested by ${message.author.username}`,
+                  message.author.avatarURL
+                );
+              try {
+                var codesID = message.guild.channels.cache.find(
+                  (channel) => channel.name === "codes"
+                ).id;
+                client.channels.cache.get(codesID).send(codeEmbed);
+                if (!message.channel.id === codesID) {
+                  // check if the command wasnt sent in the codes channel
+                  message.channel
+                    .send(`Sent in <#${codesID}>`)
+                    .then((msg) => {
+                      msg.delete({
+                        timeout: 5000,
+                      });
+                    });
+                }
+              } catch (err) {
+                message.channel.send(codeEmbed);
+              }
+              message.member.voice.channel.edit({
+                name: `${args[1].toUpperCase()} | Among Us`, // This among us NEEDS to be here, it makes the bot work without storing data
+              });
+              /*message.guild.me.edit({
+                nick: `${args[1].toUpperCase()} | ${message.client.user.username}`
+              });*/
+              L.log(`Updated code to ${message.content}`);
+            } else {
+              message.channel.send("**Error:** Please join a voice channel.");
+            }
+          } else {
+            message.channel.send("**Error:** Invalid Code");
+          }
+        } else {
+          message.channel.send("**Error:** Invalid Region (NA, EU, or ASIA)");
+        }
+      } else {
+        message.channel.send("**Error:** Invalid Code");
+        return;
+      }
+    } else {
+      message.channel.send("**Error:** Missing Arguments");
+    }
+
+    setTimeout(async () => { // clean queue after 6 hours
+      message.member.voice.channel.edit({
+        name: `Among Us`, // This among us NEEDS to be here, it makes the bot work without storing data
+      });
+      message.guild.me.edit({
+        nick: `${message.client.user.username}`
+      });
+    }, 1000 * 60 * 60 * 6);
+    break;
+  case "mute":
+    var _game = "";
+    try {
+      _game = client.channels.cache.find((channel) =>
+        channel.name.includes("Among Us")
+      );
+    } catch (err) {}
+    if (message.member.voice.channel.id === _game.id) {
+      var channel = message.guild.channels.cache.get(
+        message.member.voice.channel.id
+      );
+      alreadyMuted = !alreadyMuted;
+      for (const [memberID, member] of channel.members) {
+        if (alreadyMuted) {
+          member.voice.setMute(true);
+        } else {
+          member.voice.setMute(false);
+        }
+      }
+    } else {
+      message.channel.send(
+        "You must be in the game channel to use this command!"
+      );
+    }
     break;
   }
 })
