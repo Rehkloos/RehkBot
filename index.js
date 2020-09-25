@@ -1,12 +1,17 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const express = require("express");
+require('dotenv').config();
+require('events').EventEmitter.defaultMaxListeners = 15;
+
+
+// File imports
 const L = require('./utils/logger');
 const commandsList = require("./commands.json");
 const Queue = require('./handlers/queuehandler').Queue;
 const loadCommands = require('./commands/load-commands')
 const antiAd = require('./anti-ad');
-require('dotenv').config();
+
 
 const token = process.env.TOKEN;
 
@@ -33,7 +38,6 @@ const PREFIX = process.env.PREFIX;
 
 var q = new Queue();
 var map = new Map();
-var alreadyMuted = false;
 
 
 client.on('message', message => {
