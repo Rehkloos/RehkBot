@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
+    "child-process": "^1.0.2",
     "cross-env": "^7.0.2",
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
