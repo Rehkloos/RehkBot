@@ -2,6 +2,7 @@ module.exports = {
     commands: 'unmute',
     minArgs: 0,
     maxArgs: 0,
+    description: "Un-mute users in voice channel",
     permissions: [],
     callback: (message) => {
         if (message.member.voice.channel) {

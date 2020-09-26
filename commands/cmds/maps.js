@@ -4,6 +4,7 @@ module.exports = {
     commands: 'maps',
     minArgs: 0,
     maxArgs: 0,
+    description: "Among Us Maps",
     callback: (message) => {
         const mapsEmbed = new Discord.MessageEmbed()
             .setTitle('All the Among Us maps')

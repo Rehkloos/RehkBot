@@ -4,6 +4,7 @@ module.exports = {
     commands: 'about',
     minArgs: 0,
     maxArgs: 0,
+    description: "Links for bot and developer",
     callback: (message) => {
         const helpEmbed = new Discord.MessageEmbed()
             .setColor(0xDC143C)

@@ -4,6 +4,7 @@ module.exports = {
     commands: 'nuke',
     minArgs: 0,
     maxArgs: 0,
+    description: "Clean messages in code channel. Needs admin privilages",
     permissions: 'MANAGE_MESSAGES',
     callback: (message, client) => {
         if ((message.guild.channels.cache.find(c => c.name === "codes"))) { // second check nuke command in codes room
