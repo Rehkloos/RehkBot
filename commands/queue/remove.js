@@ -1,4 +1,4 @@
-const qhandler = require('../../handlers/queuehandler');
+const qhandler = require('@handlers/queuehandler');
 
 module.exports = {
     commands: 'remove',

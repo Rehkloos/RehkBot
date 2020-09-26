@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const loadCommands = require('./load-commands')
+const loadCommands = require('@root/commands/load-commands')
 const prefix = process.env.PREFIX;
 
 module.exports = {

@@ -1,15 +1,17 @@
+require('module-alias/register')
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const express = require("express");
 require('dotenv').config();
-require('events').EventEmitter.defaultMaxListeners = 20;
+require('events').EventEmitter.defaultMaxListeners = 30;
 
 
 // File imports
-const L = require('./utils/logger');
-const loadCommands = require('./commands/load-commands')
-const antiAd = require('./utils/anti-ad');
-const roleClaim = require('./utils/role-claim');
+const L = require('@util/logger');
+const loadCommands = require('@root/commands/load-commands')
+const antiAd = require('@features/anti-ad');
+const roleClaim = require('@features/role-claim');
+const loadFeatures = require('@root/features/load-features')
 
 
 const token = process.env.TOKEN;
@@ -31,6 +33,7 @@ client.on('ready', async () => {
   antiAd(client);
   loadCommands(client);
   roleClaim(client);
+  loadFeatures(client);
 });
 
 client.login(token);

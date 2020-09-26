@@ -7,7 +7,7 @@
 
 require('dotenv').config();
 const prefix = process.env.PREFIX;
-const L = require('../utils/logger');
+const L = require('@util/logger');
 
 const validatePermissions = (permissions) => {
   const validPermissions = [

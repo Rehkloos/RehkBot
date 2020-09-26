@@ -3,7 +3,7 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-const L = require('../../utils/logger');
+const L = require('@util/logger');
 
 const blacklistedWords = new Set(['NICE', 'OKAY', 'STFU', 'WHOA', 'GUYS', 'LMAO', 'ROFL', 'FUCK', 'BRUH', 'SHIT', 'WHAT', 'LULW', 'KEKW', 'LOLW', 'DUDE', 'HAHA', 'AHAH', 'LMOA', 'JOIN', 'COME']);
 
