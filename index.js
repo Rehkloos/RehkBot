@@ -8,7 +8,8 @@ require('events').EventEmitter.defaultMaxListeners = 20;
 // File imports
 const L = require('./utils/logger');
 const loadCommands = require('./commands/load-commands')
-const antiAd = require('./anti-ad');
+const antiAd = require('./utils/anti-ad');
+const roleClaim = require('./utils/role-claim');
 
 
 const token = process.env.TOKEN;
@@ -29,6 +30,7 @@ client.on('ready', async () => {
 
   antiAd(client);
   loadCommands(client);
+  roleClaim(client);
 });
 
 client.login(token);
