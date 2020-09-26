@@ -7,8 +7,14 @@
     "TOKEN": {
       "description": "Discord Bot Token (https://discord.com/developers/applications)"
     },
-    "roleID": {
-      "description": "create role in your server > right click role for Copy ID > paste it here"
+    "ROLE": {
+      "description": "Create role in your server > right click role for Copy ID > paste it here"
+    },
+    "QUEUE": {
+      "description": "Create queue channel in your server > right click queue channel for Copy ID > paste it here"
+    },
+    "PREFIX": {
+      "description": "Enter symbol you want to use before a command name to call that command"
     }
   }
 }
