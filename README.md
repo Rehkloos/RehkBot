@@ -3,6 +3,11 @@ An Among Us Bot built in Discord.js
 
 **Under heavy development right now! If you find any errors be sure to come here and [create an issue](https://github.com/MrAuro/Among-Us-Bot/issues/new/choose).**
 
+# To Do:
+If you know how to do one of these or have an idea, [make a pull request!](https://github.com/MrAuro/Among-Us-Bot/pulls).
+
+- [] Fix Role command with using reactions
+
 ---
 
 
