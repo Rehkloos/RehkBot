@@ -36,7 +36,8 @@ client.on('ready', async () => {
     .registerGroups([
       ['among us', 'Among Us'],
       ['moderation', 'moderation commands'],
-      ['queue', 'Among Us Queue']
+      ['queue', 'Among Us Queue'],
+      ['extras', 'Extra Commands']
     ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname, 'cmds'))

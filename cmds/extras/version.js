@@ -4,7 +4,7 @@ module.exports = class VersionCommand extends Commando.Command {
     constructor(client) {
         super(client, {
             name: 'version',
-            group: 'among us',
+            group: 'extras',
             memberName: 'version',
             description: 'Latest commit for bot',
         })
