@@ -22,29 +22,29 @@ function Verify(message, args) {
   if (mapCode < 0 || mapCode > 2 || isNaN(mapCode))
     return "The last argument must be a map number between 0 and 2. Use! Amongus help for help.";
 
-  const victory = {
+  const Loss = {
     serverID: message.guild.id,
     mode: modes[qtyImposters - 1],
     impostors: Array.from(message.mentions.users.keys()).sort(), // converts the users map into an array
     map: maps[mapCode],
   };
-  victory.impostorsKey = victory.impostors.join("-");
+  Loss.impostorsKey = Loss.impostors.join("-");
   var impostorsMention = "";
-  for (let i = 0; i < victory.impostors.length; i++) {
-    impostorsMention += `<@${victory.impostors[i]}> `;
+  for (let i = 0; i < Loss.impostors.length; i++) {
+    impostorsMention += `<@${Loss.impostors[i]}> `;
   }
-  victory.impostorsMention = impostorsMention;
+  Loss.impostorsMention = impostorsMention;
 
-  return victory;
+  return Loss;
 }
 
 module.exports = class StartCommand extends Commando.Command {
   constructor(client) {
       super(client, {
-          name: 'win',
-          aliases: ['w','wins'],
+          name: 'loss',
+          aliases: ['l','losses'],
           group: 'ranked',
-          memberName: 'win',
+          memberName: 'loss',
           description: "Wins counter based on maps. syntax: !win (name) 0-2  ",
           argsType: 'multiple',
       })
@@ -56,9 +56,9 @@ module.exports = class StartCommand extends Commando.Command {
       message.reply(result);
       return false;
     }
-    await db.registerWin(result);
+    await db.registerLoss(result);
     message.reply(
-      `Victory recorded for imposters ${result.impostorsMention} on ${result.map} map`
+      `Loss recorded for imposters ${result.impostorsMention} on ${result.map} map`
     );
   }
 };

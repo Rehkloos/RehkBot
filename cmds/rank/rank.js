@@ -82,16 +82,16 @@ module.exports = class RankCommand extends Commando.Command {
         }
         message.channel.send(new MessageEmbed()
           .setColor(0xDC143C)
-          //.setAuthor(`Number of wins in ${mode} for ${impostorsMention}`)
+          .setTitle(`Ranked Results`)
           .setDescription(`Number of wins in ${mode} for ${impostorsMention}:
-        Total: ${res.total},
+        Wins: ${res.wins},
+        Loss: ${res.loss},
         The Skeld: ${res.theskeld},
         Mira HQ: ${res.mirahq},
         Polus: ${res.polus}`)
           .setTimestamp()
           .setFooter(
-            `Requested by ${message.author.username}`,
-            message.author.avatarURL)
+            `Requested by ${message.author.username}`)
           .setThumbnail(
             "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.HCuyxDU5qqVDlpp0FnPVJwAAAA%26pid%3DApi&f=1"
           ));
