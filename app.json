@@ -16,8 +16,26 @@
     "PREFIX": {
       "description": "Enter symbol you want to use before a command name to call that command"
     },
-    "OWNER": {
-      "description": "right click on your name on left member pane and press Copy ID > paste it here"
+    "FIREBASE_APIKEY": {
+      "description": "HOW TO SETUP: (https://github.com/cappp/dbm-firebase/blob/master/README.md)"
+    },
+    "FIREBASE_AUTHDOMAIN": {
+      "description": "HOW TO SETUP: (https://github.com/cappp/dbm-firebase/blob/master/README.md)"
+    },   
+    "FIREBASE_DATABASEURL": {
+      "description": "HOW TO SETUP: (https://github.com/cappp/dbm-firebase/blob/master/README.md)"
+    },   
+    "FIREBASE_PROJECTID": {
+      "description": "HOW TO SETUP: (https://github.com/cappp/dbm-firebase/blob/master/README.md)"
+    },    
+    "FIREBASE_STORAGEBUCKET": {
+      "description": "HOW TO SETUP: (https://github.com/cappp/dbm-firebase/blob/master/README.md)"
+    },    
+    "FIREBASE_MESSAGINGSENDERID": {
+      "description": "HOW TO SETUP: (https://github.com/cappp/dbm-firebase/blob/master/README.md)"
+    },        
+    "FIREBASE_APPID": {
+      "description": "HOW TO SETUP: (https://github.com/cappp/dbm-firebase/blob/master/README.md)"
     }
   }
 }
