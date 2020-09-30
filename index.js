@@ -1,20 +1,23 @@
 require('module-alias/register')
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const path = require('path')
+const Commando = require('discord.js-commando')
 const express = require("express");
 require('dotenv').config();
-require('events').EventEmitter.defaultMaxListeners = 30;
 
 
 // File imports
 const L = require('@util/logger');
-const loadCommands = require('@root/commands/load-commands')
 const antiAd = require('@features/anti-ad');
-const roleClaim = require('@features/role-claim');
-const loadFeatures = require('@root/features/load-features')
+const roleClaim = require('@features/amongus-role');
 
-
+const prefix = process.env.PREFIX;
+const owner = process.env.OWNER;
 const token = process.env.TOKEN;
+
+const client = new Commando.CommandoClient({
+  owner: owner,
+  commandPrefix: prefix
+})
 
 const app = express();
 const port = process.env.PORT || '0.0.0.0';
@@ -29,11 +32,18 @@ client.on('ready', async () => {
   })
   L.log(`Logged in as ${client.user.tag}`);
 
+  client.registry
+    .registerGroups([
+      ['among us', 'Among Us'],
+      ['moderation', 'moderation commands'],
+      ['queue', 'Among Us Queue'],
+      ['extras', 'Extra Commands']
+    ])
+    .registerDefaults()
+    .registerCommandsIn(path.join(__dirname, 'cmds'))
 
   antiAd(client);
-  loadCommands(client);
   roleClaim(client);
-  loadFeatures(client);
 });
 
 client.login(token);

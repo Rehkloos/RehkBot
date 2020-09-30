@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Commando = require('discord.js-commando')
 const {
     MessageEmbed
 } = require('discord.js');
@@ -8,14 +8,18 @@ const L = require('@util/logger');
 const blacklistedWords = new Set(['NICE', 'OKAY', 'STFU', 'WHOA', 'GUYS', 'LMAO', 'ROFL', 'FUCK', 'BRUH', 'SHIT', 'WHAT', 'LULW', 'KEKW', 'LOLW', 'DUDE', 'HAHA', 'AHAH', 'LMOA', 'JOIN', 'COME']);
 
 
-module.exports = {
-    commands: 'code',
-    expectedArgs: '<code>',
-    minArgs: 1,
-    maxArgs: 1,
-    description: "Post Among Us code to channel",
-    callback: (message, args) => {
+module.exports = class CodeCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'code',
+            group: 'among us',
+            memberName: 'code',
+            description: 'Post Among Us code to channel',
+            argsType: 'multiple',
+        })
+    }
 
+    async run(message, args) {
         const code = args[0];
 
         if (!blacklistedWords.has(code)) {
@@ -67,10 +71,10 @@ module.exports = {
                 }
 
                 maxChannel.edit({
-                    name: `${code} | AmongUs`
+                    name: `${code} | Among Us`
                 });
                 message.member.voice.channel.edit({
-                    name: `${code} | AmongUs` // This among us NEEDS to be here, it makes the bot work without storing data
+                    name: `${code} | Among Us` // This among us NEEDS to be here, it makes the bot work without storing data
                 });
                 /*message.guild.me.edit({
                   nick: `${code} | ${this.client.user.username}`
@@ -82,5 +86,5 @@ module.exports = {
         } else {
             message.channel.send("**Error:** WATCH YOUR PROFAMITY");
         }
-    },
+    }
 }

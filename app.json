@@ -15,6 +15,9 @@
     },
     "PREFIX": {
       "description": "Enter symbol you want to use before a command name to call that command"
+    },
+    "OWNER": {
+      "description": "right click on your name on left member pane and press Copy ID > paste it here"
     }
   }
 }

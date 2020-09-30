@@ -1,12 +1,18 @@
-//const L = require('../utils/logger');
+const Commando = require('discord.js-commando');
 
-module.exports = {
-    commands: 'nuke',
-    minArgs: 0,
-    maxArgs: 0,
-    description: "Clean messages in code channel. Needs admin privilages",
-    permissions: 'MANAGE_MESSAGES',
-    callback: (message, client) => {
+module.exports = class NukeCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'nuke',
+            group: 'among us',
+            memberName: 'nuke',
+            description: 'Clean messages in code channel. Needs admin privilages',
+            clientPermissions: ['MANAGE_MESSAGES'],
+            userPermissions: ['MANAGE_MESSAGES'],
+        })
+    }
+
+    async run(message) {
         if ((message.guild.channels.cache.find(c => c.name === "codes"))) { // second check nuke command in codes room
             (async () => {
                 let deleted;
@@ -23,5 +29,5 @@ module.exports = {
                 })
                 .catch(console.error);
         }
-    },
+    }
 }
