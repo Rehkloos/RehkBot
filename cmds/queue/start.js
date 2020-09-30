@@ -15,9 +15,10 @@ module.exports = class StartCommand extends Commando.Command {
     async run(message) {
       qhandler.onOnline(message);
 
-      setTimeout(async () => { // clean queue after 6 hours
+        const time = 1000 * 60 * 60 * 6; // clean queue after 6 hours
+      setTimeout(async () => { 
           qhandler.onClear(message);
           qhandler.onOffline(message);
-        }, 1000 * 60 * 60 * 6);
+        }, time);
     }
   }
