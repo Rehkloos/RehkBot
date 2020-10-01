@@ -111,10 +111,10 @@ exports.onNext = (message, args) => {
 };
 
 /**
- * If a TA accidently readied a student, and needs to put them back in the queue.
+ * If a admin accidently readied a someone, and needs to put them back in the queue.
  * '!undo' will automatically put the last dequeued member back to the front of the queue.
  *
- * If the bot does not remember any recent readied students, it will tell the TA.
+ * If the bot does not remember any recent readied person, it will tell the admin.
  *
  * There is currently no Bot process for letting the user know it was an accident
  */
@@ -169,7 +169,6 @@ exports.onQueue = (message) => {
   }
 };
 
-// This potentially could be where the TA-leave functionality goes
 exports.onLeave = (message) => {
   if (QUEUE === message.channel.id) {
     if (!contains(message.author)) {
@@ -316,7 +315,7 @@ exports.onClear = (message) => {
   }
 
 
-  /* Goes through entire queue and finds the student's 'next' message and removes it */
+  /* Goes through entire queue and finds the person's 'next' message and removes it */
   for (let i = queue.length - 1; i >= 0; i -= 1) {
     const msg = queue[i].message;
     msg.delete();
