@@ -6,7 +6,8 @@ An Among Us Bot built in Discord.js
 # To Do:
 If you know how to do one of these or have an idea, [make a pull request!](https://github.com/MrAuro/Among-Us-Bot/pulls).
 
-- [] Fix Role command with using reactions
+- [ ] Set queue to firebase implement
+- [ ] fix ranked win/loss database
 
 ---
 
