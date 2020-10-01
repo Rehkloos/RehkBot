@@ -28,7 +28,7 @@ module.exports = class AboutCommand extends Commando.Command {
         inline: "true",
     }, {
         name: "Invite",
-        value: "Currently, this bot is private however later you can add this bot to your own Discord!", // im planning on making this public
+        value: "[Add ImposterBot to server](https://discord.com/api/oauth2/authorize?client_id=349236583611891714&permissions=1371630673&scope=bot)", // im planning on making this public
         inline: "true",
     })
     .setThumbnail(
