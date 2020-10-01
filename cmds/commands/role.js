@@ -8,8 +8,8 @@ module.exports = class RoleCommand extends Commando.Command {
             group: 'among us',
             memberName: 'role',
             description: 'Assign Among Us role via reaction',
-            clientPermissions: ['MANAGE_GUILD'],
-            userPermissions: ['MANAGE_GUILD'],
+            clientPermissions: ['MANAGE_ROLES'],
+            userPermissions: ['MANAGE_ROLES'],
         })
     }
 
