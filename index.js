@@ -8,7 +8,7 @@ require('dotenv').config();
 // File imports
 const L = require('@util/logger');
 const antiAd = require('@features/anti-ad');
-const roleClaim = require('@features/amongus-role');
+const roleClaim = require('@features/roleAdd');
 
 const prefix = process.env.PREFIX;
 const owner = process.env.OWNER;
