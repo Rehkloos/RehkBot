@@ -16,7 +16,7 @@ module.exports = class MapsCommand extends Commando.Command {
   async run(message) {
     message.channel.send(new MessageEmbed()
       .setTitle('All the Among Us maps')
-      .attachFiles(['./static/icon.png'])
+      .attachFiles(['./assets/static/icon.png'])
       .setThumbnail('attachment://icon.png')
       .setFooter(`Requested by ${message.author.username}`,
         message.author.avatarURL)
