@@ -5,8 +5,9 @@ const {
 
 const L = require('@util/logger');
 
-const blacklistedWords = new Set(['NICE', 'OKAY', 'STFU', 'WHOA', 'GUYS', 'LMAO', 'ROFL', 'FUCK', 'BRUH', 'SHIT', 'WHAT', 'LULW', 'KEKW', 'LOLW', 'DUDE', 'HAHA', 'AHAH', 'LMOA', 'JOIN', 'COME']);
+const blacklist = require('@assets/bannedwords.json');
 
+const blacklistedWords = new Set(blacklist);
 
 module.exports = class CodeCommand extends Commando.Command {
     constructor(client) {
@@ -22,7 +23,7 @@ module.exports = class CodeCommand extends Commando.Command {
     async run(message, args) {
         const code = args[0];
 
-        if (!blacklistedWords.has(code)) {
+        if (!blacklistedWords.has(code.toUpperCase())) {
 
 
             var gamechannelID = "";
