@@ -38,7 +38,7 @@ module.exports = class AboutCommand extends Commando.Command {
       .setTimestamp()
       .setFooter(
         `Requested by ${message.author.username}`,
-        message.author.avatarURL)
+        message.author.avatarURL())
     );
   }
 }

@@ -18,6 +18,7 @@ module.exports = class RoleCommand extends Commando.Command {
             .setColor(0xDC143C)
             .setAuthor(`Click reaction to be assigned "amongus" role`)
             .setDescription(`👍: "amongus"`)
+            .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL())
         message.channel.send(embed).then(async msg => {
             await msg.react("👍");
         })

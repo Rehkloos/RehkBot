@@ -42,6 +42,7 @@ module.exports = class VoicePanelCommand extends Commando.Command {
 
                 const embed = new MessageEmbed()
                     .setColor(0xDC143C)
+                    .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL())
                     .setTitle(`Among Us started in [🔊 ${voiceChannel.name}]`)
                     .setDescription(
                         'Click 🔇 to mute everyone.\n' +

@@ -52,7 +52,7 @@ module.exports = class CodeCommand extends Commando.Command {
                         .setTitle(`${code}`)
                         .setDescription(`The code is ${code}.\n\nCheck the bot name too!\n*sometimes the voice channel name wont change due to being rate limited*`) // make this look better
                         .setTimestamp()
-                        .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL)
+                        .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL())
                     ).then(message => {
                         message.delete({
                             timeout: 1000 * 60 * 60 * 5

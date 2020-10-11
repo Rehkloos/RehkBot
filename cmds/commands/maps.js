@@ -18,7 +18,7 @@ module.exports = class MapsCommand extends Commando.Command {
       .setTitle('All the Among Us maps')
       .attachFiles(['./assets/static/icon.png'])
       .setThumbnail('attachment://icon.png')
-      .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL)
+      .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL())
       .setColor(0xDC143C)
       .addFields({
         name: 'Skeled',
