@@ -18,20 +18,19 @@ module.exports = class MapsCommand extends Commando.Command {
       .setTitle('All the Among Us maps')
       .attachFiles(['./assets/static/icon.png'])
       .setThumbnail('attachment://icon.png')
-      .setFooter(`Requested by ${message.author.username}`,
-        message.author.avatarURL)
+      .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL)
       .setColor(0xDC143C)
       .addFields({
         name: 'Skeled',
-        value: 'https://www.fanbyte.com/wp-content/uploads/2020/08/xAmong-Us-Skeled-Vents.jpg,qx96128.pagespeed.ic.UQgyhfawhK.jpg',
+        value: 'https://github.com/Rehkloos/queue-bot/raw/master/assets/static/maps/TheSkeld.png',
         inline: 'true'
       }, {
         name: 'Mira',
-        value: 'https://www.fanbyte.com/wp-content/uploads/2020/08/Among-Us-MIRA-UQ-Vents.jpg',
+        value: 'https://github.com/Rehkloos/queue-bot/raw/master/assets/static/maps/Mirahq.png',
         inline: 'true'
       }, {
         name: 'Polas',
-        value: 'https://www.fanbyte.com/wp-content/uploads/2020/09/xAmong-Us-Polas-Map-Vents.jpg,qx96128.pagespeed.ic.V7Tg_KkLi6.jpg',
+        value: 'https://github.com/Rehkloos/queue-bot/raw/master/assets/static/maps/Polus.png',
         inline: 'true'
       }, )
     );
