@@ -2,12 +2,15 @@ const Commando = require('discord.js-commando');
 const {
     MessageEmbed
 } = require('discord.js');
+const Discord = require('discord.js');
+const voicehandler = require('@handlers/voicehandler');
+const L = require('@util/logger');
 
 module.exports = class VoicePanelCommand extends Commando.Command {
     constructor(client) {
         super(client, {
             name: 'voice-panel',
-            aliases: ['voice'],
+            aliases: ['voice', 'vc'],
             group: 'among us',
             memberName: 'voice-panel',
             description: 'Embed with controls for muting/unmuting main Among us voice channel',
@@ -90,11 +93,11 @@ module.exports = class VoicePanelCommand extends Commando.Command {
                             break;
                         case '🔇':
                             for (const member of members)
-                                await member.voice.setMute(true);
+                                await new voicehandler(Discord, message.guild, member).muteAll();
                             break;
                         case '🗣️':
-                            for (const member of members) 
-                                await member.voice.setMute(false);                           
+                            for (const member of members)
+                                await new voicehandler(Discord, message.guild, member).unmuteAll();
                             break;
                         default:
                             break;
