@@ -25,6 +25,7 @@
     "@util": "./util",
     "@features": "./features",
     "@handlers": "./handlers",
-    "@assets": "./assets"
+    "@assets": "./assets",
+    "@events": "./events"
   }
 }

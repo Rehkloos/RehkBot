@@ -9,6 +9,7 @@ require('dotenv').config();
 const L = require('@util/logger');
 const antiAd = require('@features/anti-ad');
 const roleClaim = require('@features/roleAdd');
+const eventloader = require('@util/eventLoader');
 
 const prefix = process.env.PREFIX;
 const owner = process.env.OWNER;
@@ -27,11 +28,6 @@ app.listen(port, () => {
 });
 
 client.on('ready', async () => {
-  await client.user.setActivity(`Among Us | on ${client.guilds.cache.size} servers`, {
-    type: "PLAYING"
-  })
-  L.log(`Logged in as ${client.user.tag}`);
-
   client.registry
     .registerGroups([
       ['among us', 'Among Us'],
@@ -47,4 +43,5 @@ client.on('ready', async () => {
   roleClaim(client);
 });
 
+eventloader(client);
 client.login(token);
