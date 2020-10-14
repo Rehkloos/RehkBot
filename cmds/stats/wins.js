@@ -10,17 +10,23 @@ module.exports = class WinsCommand extends Commando.Command {
       name: 'wins',
       group: 'among us',
       memberName: 'wins',
-      description: 'Among Us Maps',
+      description: `add wins or check how much wins you have. "!win +" to add loss & "!win info" to check loss count`,
+      argsType: 'multiple',
     })
   }
 
-  async run(message) {
+  async run(message, args) {
     const {
       guild,
       member
     } = message
 
-    addWins(guild.id, member.id, 1, message)
+    const input = args;
+    if (input == "+") {
+      addWins(guild.id, member.id, 1, message)
+    } else if (input == "info") {
+      addWins(guild.id, member.id, 0, message)
+    }
   }
 }
 

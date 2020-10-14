@@ -10,17 +10,23 @@ module.exports = class LossCommand extends Commando.Command {
       name: 'loss',
       group: 'among us',
       memberName: 'loss',
-      description: 'Among Us Maps',
+      description: `add losses or check how much losses you have. "!loss +" to add loss & "!loss info" to check loss count`,
+      argsType: 'multiple',
     })
   }
 
-  async run(message) {
+  async run(message, args) {
     const {
       guild,
       member
     } = message
 
-    addLoss(guild.id, member.id, 1, message)
+    const input = args;
+    if (input == "+") {
+      addLoss(guild.id, member.id, 1, message)
+    } else if (input == "info") {
+      addLoss(guild.id, member.id, 0, message)
+    }
   }
 }
 
