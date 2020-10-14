@@ -62,7 +62,7 @@ class Logger {
 			});
 		}
 
-		content = content.replace("");
+		content = content.replace("undefined");
 		for (const line of content.split("\n"))
 			console.log(`${grey(`[${format(new Date())}]`)} ${typeName(options.type, true)} ${line}`);
 	}
