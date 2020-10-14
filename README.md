@@ -9,8 +9,8 @@ An Among Us Bot built in Discord.js
 # To Do:
 If you know how to do one of these or have an idea, [make a pull request!](https://github.com/MrAuro/Among-Us-Bot/pulls).
 
-- [ ] Set queue to firebase implement
-- [ ] fix ranked win/loss database
+- [ ] Set queue to mongo implement
+- [ ] add ranked win/loss database
 
 ---
 
@@ -23,6 +23,8 @@ PORT=8000
 ROLE=<add ROLE ID>
 PREFIX=<add a prefix for commands i.e !>
 QUEUE=<add ID for queue channel>
+MONGO=<link to mongodb cluster/db> 
+> mongodb.com
 ```
 
 then run `npm start` in directory
