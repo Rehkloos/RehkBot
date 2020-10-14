@@ -18,6 +18,9 @@
     },
     "OWNER": {
       "description": "right click on your name on left member pane and press Copy ID > paste it here"
+    },
+    "MONGO": {
+      "description": "setup via mongodb.com"
     }
   }
 }
