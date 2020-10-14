@@ -8,7 +8,7 @@ module.exports = class WinsCommand extends Commando.Command {
   constructor(client) {
     super(client, {
       name: 'wins',
-      group: 'among us',
+      group: 'stats',
       memberName: 'wins',
       description: `add wins or check how much wins you have. "!win +" to add loss & "!win info" to check loss count`,
       argsType: 'multiple',

@@ -8,7 +8,7 @@ module.exports = class LossCommand extends Commando.Command {
   constructor(client) {
     super(client, {
       name: 'loss',
-      group: 'among us',
+      group: 'stats',
       memberName: 'loss',
       description: `add losses or check how much losses you have. "!loss +" to add loss & "!loss info" to check loss count`,
       argsType: 'multiple',

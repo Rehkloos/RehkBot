@@ -57,7 +57,8 @@ client.on('ready', async () => {
       ['moderation', 'moderation commands'],
       ['queue', 'Among Us Queue'],
       ['extras', 'Extra Commands'],
-      ['admin', 'Admin']
+      ['admin', 'Admin'],
+      ['stats', 'Among Us stats']
     ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname, 'cmds'))
