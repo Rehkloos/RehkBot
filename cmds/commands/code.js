@@ -1,11 +1,14 @@
 const Commando = require('discord.js-commando')
 const {
     MessageEmbed
-} = require('discord.js');
-
+} = require('discord.js')
 const L = require('@util/logger');
 
 const blacklist = require('@assets/bannedwords.json');
+
+const amongUsCategorySchema = require('@schemas/among-us-category-schema')
+
+const channelNameStart = 'Among Us'
 
 const blacklistedWords = new Set(blacklist);
 
@@ -15,75 +18,74 @@ module.exports = class CodeCommand extends Commando.Command {
             name: 'code',
             group: 'among us',
             memberName: 'code',
-            description: 'Post Among Us code to channel',
+            description: 'Makes it easier to play "Among Us" with friends',
             argsType: 'multiple',
+        })
+
+        client.on('voiceStateUpdate', (oldState) => {
+            const {
+                channel
+            } = oldState
+
+            if (
+                channel &&
+                channel.name.startsWith(channelNameStart) &&
+                channel.members.size === 0
+            ) {
+                channel.delete()
+                L.log(`Deleting channel "${channel.name}"`)
+            }
         })
     }
 
-    async run(message, args) {
-        const code = args[0];
+    run = async (message, args) => {
+        //!au <Region> <Code>
+        const [region, code] = args
+
+        if (!region) {
+            message.reply('Please specify a region')
+            return
+        }
+
+        if (!code) {
+            message.reply('Please specify the game code')
+            return
+        }
+
+        const {
+            channel,
+            guild,
+            member
+        } = message
+
+        const categoryDocument = await amongUsCategorySchema.findOne({
+            _id: guild.id,
+        })
+
+        if (!categoryDocument) {
+            message.reply('An Among Us category has not been set within this server')
+            return
+        }
 
         if (!blacklistedWords.has(code.toUpperCase())) {
+            const channelName = `${channelNameStart} "${code}"`
+            await guild.channels.create(channelName, {
+                type: 'voice',
+                userLimit: 10,
+                parent: categoryDocument.categoryId,
+            })
 
+            const embed = new MessageEmbed()
+                .setTitle(`LOBBY CODE: ${code.toUpperCase()}`)
+                .setDescription(
+                    `${member} created a new Among Us game! Join channel "${channelName}"`
+                )
+                .setColor(0xDC143C)
+                .addField('Region', region.toUpperCase())
+                .setTimestamp()
+                .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL())
 
-            var gamechannelID = "";
-            gamechannelID = message.guild.channels.cache.find(channel => channel.name.includes("Among"));
-
-            let maxMembers = -1;
-            let maxChannel = null;
-            for (let vc of message.guild.channels.cache.values()) {
-                if (vc.type === 'voice') {
-                    if (vc.members.has(message.author.id)) {
-                        maxChannel = vc;
-                        break;
-                    } else if (vc.members.size > maxMembers) {
-                        maxMembers = vc.members.size;
-                        maxChannel = vc;
-                    }
-                }
-            }
-
-            if (message.member.voice.channel && gamechannelID) {
-                try {
-                    var codesID = message.guild.channels.cache.find(channel => channel.name === "codes").id;
-                    const mychannel = (message.guild.channels.cache.find(c => c.name === "codes"));
-                    if (mychannel) mychannel.send(new MessageEmbed()
-                        .setColor(0xDC143C)
-                        .setTitle(`${code}`)
-                        .setDescription(`The code is ${code}.\n\nCheck the bot name too!\n*sometimes the voice channel name wont change due to being rate limited*`) // make this look better
-                        .setTimestamp()
-                        .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL())
-                    ).then(message => {
-                        message.delete({
-                            timeout: 1000 * 60 * 60 * 5
-                        });
-                    });
-                    if (!message.channel.id === codesID) {
-                        // check if the command wasnt sent in the codes channel
-                        message.channel.send(`Sent in <#${codesID}>`).then(message => {
-                            message.delete({
-                                timeout: 5000
-                            });
-                        });
-                    }
-
-                } catch (err) {
-                    message.channel.send(mychannel);
-                }
-
-                maxChannel.edit({
-                    name: `${code} | Among Us`
-                });
-                message.member.voice.channel.edit({
-                    name: `${code} | Among Us` // This among us NEEDS to be here, it makes the bot work without storing data
-                });
-                /*message.guild.me.edit({
-                  nick: `${code} | ${this.client.user.username}`
-                });*/
-                L.log(`Updated code to ${code}`);
-            } else {
-                message.channel.send("**Error:** Please join a voice channel.");
-            }
+            channel.send(embed)
         } else {
             message.channel.send("**Error:** WATCH YOUR PROFAMITY");
         }
