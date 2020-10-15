@@ -33,7 +33,9 @@ module.exports = class StatsCommand extends Commando.Command {
       guildId,
     })
 
+    // Calculations
     const total = statsData.wins + statsData.loss;
+    const winP = statsData.wins/total*100;
 
     if (member.roles.cache.has(roleID)) {
       const embed = new MessageEmbed()
@@ -42,7 +44,7 @@ module.exports = class StatsCommand extends Commando.Command {
           member.user.displayAvatarURL()
         )
         .setDescription(
-          `𝘄𝗶𝗻𝘀: ${statsData.wins}\n𝗹𝗼𝘀𝘀: ${statsData.loss}\n𝘁𝗼𝘁𝗮𝗹: ${total}\n`
+          `𝘄𝗶𝗻𝘀: ${statsData.wins}\n𝗹𝗼𝘀𝘀: ${statsData.loss}\n𝘁𝗼𝘁𝗮𝗹: ${total}\n𝘄𝗶𝗻 𝗿𝗮𝘁𝗲: ${winP}%`
         )
         .setTimestamp()
         .setColor(0xDC143C)
