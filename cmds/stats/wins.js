@@ -2,7 +2,9 @@ const Commando = require('discord.js-commando');
 const {
   MessageEmbed
 } = require('discord.js');
-const statsSchema = require('@schemas/stats-schema')
+const statsSchema = require('@schemas/stats-schema');
+
+const roleID = process.env.ROLE;
 
 module.exports = class WinsCommand extends Commando.Command {
   constructor(client) {
@@ -22,10 +24,16 @@ module.exports = class WinsCommand extends Commando.Command {
     } = message
 
     const input = args;
-    if (input == "+") {
-      addWins(guild.id, member.id, 1, message)
-    } else if (input == "info") {
-      addWins(guild.id, member.id, 0, message)
+    if (member.roles.cache.has(roleID)) {
+      if (input == "+") {
+        addWins(guild.id, member.id, 1, message)
+      } else if (input == "info") {
+        addWins(guild.id, member.id, 0, message)
+      }
+    } else if (!member.roles.cache.has(roleID)) {
+      message.reply(
+        `you do not have the "amongus" role to use this command`
+      )
     }
   }
 }
