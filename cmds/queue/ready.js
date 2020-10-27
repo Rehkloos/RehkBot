@@ -16,4 +16,4 @@ module.exports = class ReadyCommand extends Commando.Command {
     async run(message, args) {
         qhandler.onReady(message, args);
     }
-  }
+}

@@ -15,4 +15,4 @@ module.exports = class StopCommand extends Commando.Command {
     async run(message) {
         qhandler.onOffline(message);
     }
-  }
+}

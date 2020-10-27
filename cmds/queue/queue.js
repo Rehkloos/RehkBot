@@ -15,5 +15,4 @@ module.exports = class QueueCommand extends Commando.Command {
     async run(message) {
         qhandler.onQueue(message);
     }
-  }
-  
+}

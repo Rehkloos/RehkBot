@@ -16,4 +16,4 @@ module.exports = class JoinCommand extends Commando.Command {
     async run(message, args) {
         qhandler.onNext(message, args);
     }
-  }
+}

@@ -5,7 +5,7 @@ module.exports = class DequeueCommand extends Commando.Command {
     constructor(client) {
         super(client, {
             name: 'qdequeue',
-            aliases: ['dequeue'],
+            aliases: ['dequeue', 'leave'],
             group: 'queue',
             memberName: 'qdequeue',
             description: 'removes yourself from ongoing queue',
@@ -15,4 +15,4 @@ module.exports = class DequeueCommand extends Commando.Command {
     async run(message) {
         qhandler.onLeave(message);
     }
-  }
+}

@@ -9,7 +9,7 @@ const {
   QUEUE
 } = process.env;
 
-const onlineTas = {};
+const InQ = {};
 
 function getNickname(message) {
   const member = message.guild.member(message.author);
@@ -20,7 +20,7 @@ function getNickname(message) {
 }
 
 function isOnline(member) {
-  return member.id in onlineTas;
+  return member.id in InQ;
 }
 
 function ready(message, readyIndex) {
@@ -34,12 +34,12 @@ function ready(message, readyIndex) {
   const msg = queue[readyIndex].message;
   const nickname = getNickname(message);
 
-  if (onlineTas[authorId].last_ready_msg !== undefined)
-    onlineTas[authorId].last_ready_msg.delete();
+  if (InQ[authorId].last_ready_msg !== undefined)
+    InQ[authorId].last_ready_msg.delete();
 
   msg.reply(`${nickname} the main among us group needs 1 more person.`)
     .then((reply) => {
-      onlineTas[authorId].last_ready_msg = reply;
+      InQ[authorId].last_ready_msg = reply;
     });
 
   msg.delete();
@@ -48,7 +48,7 @@ function ready(message, readyIndex) {
   dequeued.push(queue[readyIndex]);
   queue.splice(readyIndex, 1);
 
-  onlineTas[authorId].last_helped_time = new Date();
+  InQ[authorId].last_helped_time = new Date();
 
   message.delete({
     timeout: 5000
@@ -77,7 +77,7 @@ function contains(member) {
 exports.onNext = (message, args) => {
   if (message.channel.id !== QUEUE) return;
 
-  if (Object.keys(onlineTas).length === 0) {
+  if (Object.keys(InQ).length === 0) {
     message.reply("Sorry there are no TA's on.");
     return;
   }
@@ -182,6 +182,13 @@ exports.onLeave = (message) => {
 
     queue.splice(index(message.author), 1);
 
+    message.channel.send(`${message.author} left queue`)
+      .then((msg) => {
+        msg.delete({
+          timeout: 10 * 1000
+        });
+      });
+
     message.delete({
       timeout: 10 * 1000
     });
@@ -284,7 +291,7 @@ exports.onOnline = (message) => {
 
 
 
-    onlineTas[message.author.id] = {}; // Marks the author as 'online'
+    InQ[message.author.id] = {}; // Marks the author as 'online'
     message.guild.channels.cache.get(QUEUE).send(`${message.author} is now online.`);
   }
 };
@@ -301,7 +308,7 @@ exports.onOffline = (message) => {
         });
       return;
     }
-    delete onlineTas[message.author.id];
+    delete InQ[message.author.id];
     message.guild.channels.cache.get(QUEUE).send(`${message.author} is now offline.`);
 
   }

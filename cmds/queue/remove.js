@@ -16,4 +16,4 @@ module.exports = class RemoveCommand extends Commando.Command {
     async run(message, args) {
         qhandler.onRemove(message, args);
     }
-  }
+}
