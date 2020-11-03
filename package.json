@@ -1,6 +1,6 @@
 {
   "name": "queue-bot",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A bot that handles queues for among us lobbies.",
   "main": "index.js",
   "scripts": {
@@ -15,15 +15,14 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "child-process": "^1.0.2",
-    "commando-provider-mongo": "^1.1.1",
     "discord.js": "^12.4.1",
-    "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "mongoose": "^5.10.11",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "wokcommands": "^1.0.1"
   },
   "_moduleAliases": {
     "@root": ".",

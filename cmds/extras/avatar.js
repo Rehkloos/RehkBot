@@ -1,17 +1,11 @@
-const Commando = require('discord.js-commando');
+module.exports = {
+    name: 'avatar',
+    aliases: ['icon', 'pfp'],
+    description: 'Get the avatar URL of the tagged user(s), or your own avatar',
 
-module.exports = class AvatarCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'avatar',
-            aliases: ['icon', 'pfp'],
-            group: 'extras',
-            memberName: 'avatar',
-            description: 'Get the avatar URL of the tagged user(s), or your own avatar',
-        })
-    }
 
-    async run(message) {
+
+    callback: (message) => {
         if (!message.mentions.users.size) {
             return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ dynamic: true })}>`);
         }

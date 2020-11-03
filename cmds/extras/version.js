@@ -1,16 +1,10 @@
-const Commando = require('discord.js-commando');
+module.exports = {
+    name: 'version',
+    description: 'Latest commit for bot',
 
-module.exports = class VersionCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'version',
-            group: 'extras',
-            memberName: 'version',
-            description: 'Latest commit for bot',
-        })
-    }
 
-    async run(message) {
+
+    callback: async (message) => {
         var gitCommit = "Couldn't get commit";
 
         gitCommit = require('child_process')

@@ -1,20 +1,13 @@
-const Commando = require('discord.js-commando');
 const L = require('@util/logger');
 
-module.exports = class PruneCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'prune',
-            group: 'admin',
-            memberName: 'prune',
-            description: 'Clean messages in code channel. Needs admin privilages',
-            clientPermissions: ['MANAGE_MESSAGES'],
-            userPermissions: ['MANAGE_MESSAGES'],
-            argsType: 'multiple',
-        })
-    }
+module.exports = {
+    name: 'prune', // Optional
+    commands: ['prune'], // Optional
+    description: 'Clean messages in code channel. Needs admin privilages',
+    aliases: ['p'], // Optional
+    requiredPermissions: ['MANAGE_MESSAGES'],
 
-    async run(message, args) {
+    callback: (message, args) => {
         if (!isNaN(args[0])) {
             let messagecount = parseInt(args[0]);
             try {

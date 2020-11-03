@@ -1,4 +1,3 @@
-const Commando = require('discord.js-commando')
 const {
     MessageEmbed
 } = require('discord.js')
@@ -12,15 +11,12 @@ const channelNameStart = 'Among Us'
 
 const blacklistedWords = new Set(blacklist);
 
-module.exports = class CodeCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'code',
-            group: 'among us',
-            memberName: 'code',
-            description: 'Makes it easier to play "Among Us" with friends',
-            argsType: 'multiple',
-        })
+module.exports = {
+    name: 'code', // Optional
+    commands: ['code'], // Optional
+    description: 'Makes it easier to play "Among Us" with friends',
+
+    callback: async (message, args, client) => {
 
         client.on('voiceStateUpdate', (oldState) => {
             const {
@@ -36,9 +32,7 @@ module.exports = class CodeCommand extends Commando.Command {
                 L.log(`Deleting channel "${channel.name}"`)
             }
         })
-    }
 
-    run = async (message, args) => {
         //!au <Region> <Code>
         const [region, code] = args
 

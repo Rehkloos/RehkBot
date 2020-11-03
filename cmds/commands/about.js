@@ -1,19 +1,12 @@
-const Commando = require('discord.js-commando');
 const {
   MessageEmbed
 } = require('discord.js');
 
-module.exports = class AboutCommand extends Commando.Command {
-  constructor(client) {
-    super(client, {
-      name: 'about',
-      group: 'among us',
-      memberName: 'about',
-      description: 'Adds numbers together',
-    })
-  }
-
-  async run(message) {
+module.exports = {
+  name: 'about', // Optional
+  commands: ['about'], // Optional
+  description: 'Adds numbers together', // Optional
+  callback: (message) => {
     message.channel.send(new MessageEmbed()
       .setColor(0xDC143C)
       .setTitle("About Bot")

@@ -1,18 +1,12 @@
 const qhandler = require('@handlers/queuehandler');
-const Commando = require('discord.js-commando');
 
-module.exports = class StopCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'qstop',
-            aliases: ['stop'],
-            group: 'queue',
-            memberName: 'qstop',
-            description: "Stop queue",
-        })
-    }
+module.exports = {
+    name: 'qstop',
+    aliases: ['stop'],
+    description: "Stop queue",
 
-    async run(message) {
+
+    callback: async (message) => {
         qhandler.onOffline(message);
     }
 }
