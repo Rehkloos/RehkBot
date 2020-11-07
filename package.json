@@ -21,7 +21,7 @@
     "line-reader": "^0.4.0",
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",
-    "mongoose": "^5.10.11",
+    "mongoose": "^5.10.13",
     "nodemon": "^2.0.6",
     "wokcommands": "^1.0.1"
   },
