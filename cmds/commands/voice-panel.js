@@ -2,7 +2,7 @@ const {
     MessageEmbed
 } = require('discord.js');
 const Discord = require('discord.js');
-const voicehandler = require('@handlers/voicehandler');
+const voicehandler = require('@util/voicehandler');
 const L = require('@util/logger');
 
 module.exports = {

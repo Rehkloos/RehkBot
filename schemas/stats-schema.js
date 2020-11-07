@@ -18,4 +18,4 @@ const statsSchema = mongoose.Schema({
   },
 })
 
-module.exports = mongoose.model('amomg-us-stats', statsSchema)
+module.exports = mongoose.model('among-us-stats', statsSchema)

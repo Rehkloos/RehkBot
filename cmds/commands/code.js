@@ -16,25 +16,10 @@ module.exports = {
     commands: ['code'], // Optional
     description: 'Makes it easier to play "Among Us" with friends',
 
-    callback: async (message, args, client) => {
-
-        client.on('voiceStateUpdate', (oldState) => {
-            const {
-                channel
-            } = oldState
-
-            if (
-                channel &&
-                channel.name.startsWith(channelNameStart) &&
-                channel.members.size === 0
-            ) {
-                channel.delete()
-                L.log(`Deleting channel "${channel.name}"`)
-            }
-        })
+    callback: async (message, args) => {
 
         //!au <Region> <Code>
-        const [region, code] = args
+        let [region, code] = args
 
         if (!region) {
             message.reply('Please specify a region')
@@ -61,7 +46,10 @@ module.exports = {
             return
         }
 
-        if (!blacklistedWords.has(code.toUpperCase())) {
+        // make sure no one can bypass blacklist via case sensitivity 
+        code = code.toLowerCase();
+
+        if (!blacklistedWords.has(code)) {
             const channelName = `${channelNameStart} "${code}"`
             await guild.channels.create(channelName, {
                 type: 'voice',

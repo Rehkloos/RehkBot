@@ -1,44 +1,18 @@
-require('module-alias/register');
 const Discord = require('discord.js');
+const client = new Discord.Client();
 const WOKcmds = require('wokcommands');
 const express = require("express");
-// const { MongoClient} = require('mongodb')
-// const MongoDBProvider = require('commando-provider-mongo')
+require('module-alias/register');
 require('dotenv').config();
-
-
+require('@util/eventLoader')(client);
 
 // File imports
 const L = require('@util/logger');
-const antiAd = require('@features/anti-ad');
-const roleClaim = require('@features/roleAdd');
-const eventloader = require('@util/eventLoader');
-// const mongo = require('@util/mongo')
 
 // const prefix = process.env.PREFIX;
 // const owner = process.env.OWNER;
 const token = process.env.TOKEN;
 const mongoP = process.env.MONGO;
-
-const client = new Discord.Client();
-
-/*const client = new Commando.CommandoClient({
-  owner: owner,
-  commandPrefix: prefix
-})*/
-
-/*client.setProvider(
-  MongoClient.connect(mongoP, {
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then((client) => {
-    return new MongoDBProvider(client, 'among-us') // name of cluster
-  })
-  .catch((err) => {
-    L.error(err)
-  })
-)*/
 
 const app = express();
 const port = process.env.PORT || '0.0.0.0';
@@ -49,14 +23,10 @@ app.listen(port, () => {
 
 client.on('ready', async () => {
 
-  //await mongo();
-
   new WOKcmds(client, 'cmds', 'features')
     .setMongoPath(mongoP)
-
-  antiAd(client);
-  roleClaim(client);
+    .setSyntaxError('Incorrect syntax! Please use {PREFIX}{COMMAND} {ARGUMENTS}')
 });
 
-eventloader(client);
+
 client.login(token);

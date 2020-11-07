@@ -1,4 +1,4 @@
-const qhandler = require('@handlers/queuehandler');
+const qhandler = require('@features/queuehandler');
 
 module.exports = {
     name: 'qlist',
