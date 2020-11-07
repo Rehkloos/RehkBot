@@ -1,4 +1,3 @@
-const Commando = require('discord.js-commando')
 const {
     MessageEmbed
 } = require('discord.js')
@@ -12,35 +11,15 @@ const channelNameStart = 'Among Us'
 
 const blacklistedWords = new Set(blacklist);
 
-module.exports = class CodeCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'code',
-            group: 'among us',
-            memberName: 'code',
-            description: 'Makes it easier to play "Among Us" with friends',
-            argsType: 'multiple',
-        })
+module.exports = {
+    name: 'code', // Optional
+    commands: ['code'], // Optional
+    description: 'Makes it easier to play "Among Us" with friends',
 
-        client.on('voiceStateUpdate', (oldState) => {
-            const {
-                channel
-            } = oldState
+    callback: async (message, args) => {
 
-            if (
-                channel &&
-                channel.name.startsWith(channelNameStart) &&
-                channel.members.size === 0
-            ) {
-                channel.delete()
-                L.log(`Deleting channel "${channel.name}"`)
-            }
-        })
-    }
-
-    run = async (message, args) => {
         //!au <Region> <Code>
-        const [region, code] = args
+        let [region, code] = args
 
         if (!region) {
             message.reply('Please specify a region')
@@ -67,7 +46,10 @@ module.exports = class CodeCommand extends Commando.Command {
             return
         }
 
-        if (!blacklistedWords.has(code.toUpperCase())) {
+        // make sure no one can bypass blacklist via case sensitivity 
+        code = code.toLowerCase();
+
+        if (!blacklistedWords.has(code)) {
             const channelName = `${channelNameStart} "${code}"`
             await guild.channels.create(channelName, {
                 type: 'voice',

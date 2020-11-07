@@ -1,4 +1,3 @@
-const Commando = require('discord.js-commando');
 const {
   MessageEmbed
 } = require('discord.js');
@@ -6,18 +5,13 @@ const statsSchema = require('@schemas/stats-schema');
 
 const roleID = process.env.ROLE;
 
-module.exports = class LossCommand extends Commando.Command {
-  constructor(client) {
-    super(client, {
-      name: 'loss',
-      group: 'stats',
-      memberName: 'loss',
-      description: `add losses or check how much losses you have. "!loss +" to add loss & "!loss info" to check loss count`,
-      argsType: 'multiple',
-    })
-  }
+module.exports = {
+  name: 'loss',
+  description: `add losses or check how much losses you have. "!loss +" to add loss & "!loss info" to check loss count`,
 
-  async run(message, args) {
+
+
+  callback: async (message, args) => {
     const {
       guild,
       member

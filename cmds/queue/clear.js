@@ -1,20 +1,14 @@
-const qhandler = require('@handlers/queuehandler');
-const Commando = require('discord.js-commando');
+const qhandler = require('@features/queuehandler');
 
-module.exports = class ClearCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'qclear',
-            aliases: ['clear'],
-            group: 'queue',
-            memberName: 'qclear',
-            description: 'fully clear queue',
-            clientPermissions: ['MANAGE_MESSAGES'],
-            userPermissions: ['MANAGE_MESSAGES'],
-        })
-    }
 
-    async run(message) {
+module.exports = {
+    name: 'qclear',
+    aliases: ['clear'],
+    description: 'fully clear queue',
+    requiredPermissions: ['MANAGE_MESSAGES'],
+
+
+    callback: async (message) => {
         qhandler.onClear(message);
     }
 }

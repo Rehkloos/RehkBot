@@ -1,31 +1,21 @@
-const Commando = require('discord.js-commando');
 const {
     MessageEmbed
 } = require('discord.js');
 const Discord = require('discord.js');
-const voicehandler = require('@handlers/voicehandler');
+const voicehandler = require('@util/voicehandler');
 const L = require('@util/logger');
 
-module.exports = class VoicePanelCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'voice-panel',
-            aliases: ['voice', 'vc'],
-            group: 'among us',
-            memberName: 'voice-panel',
-            description: 'Embed with controls for muting/unmuting main Among us voice channel',
-            clientPermissions: ['MUTE_MEMBERS',
-                'DEAFEN_MEMBERS',
-                'MOVE_MEMBERS'
-            ],
-            userPermissions: ['MUTE_MEMBERS',
-                'DEAFEN_MEMBERS',
-                'MOVE_MEMBERS'
-            ],
-        })
-    }
+module.exports = {
+    name: 'voice-panel', // Optional
+    aliases: ['voice', 'vc'], // Optional
+    description: 'Embed with controls for muting/unmuting main Among us voice channel',
+    requiredPermissions: ['MUTE_MEMBERS',
+        'DEAFEN_MEMBERS',
+        'MOVE_MEMBERS'
+    ],
 
-    async run(message) {
+
+    callback: async (message) => {
 
         var _game = "";
         try {

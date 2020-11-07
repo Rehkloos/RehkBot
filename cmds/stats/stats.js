@@ -1,4 +1,3 @@
-const Commando = require('discord.js-commando');
 const {
   MessageEmbed
 } = require('discord.js');
@@ -7,18 +6,12 @@ const L = require('@util/logger');
 
 const roleID = process.env.ROLE;
 
-module.exports = class StatsCommand extends Commando.Command {
-  constructor(client) {
-    super(client, {
-      name: 'stats',
-      group: 'stats',
-      memberName: 'stats',
-      description: `check among us stats`,
-      argsType: 'multiple',
-    })
-  }
+module.exports = {
+  name: 'stats',
+  description: `check among us stats`,
 
-  async run(message) {
+
+  callback: async (message) => {
     const {
       guild,
       member,
@@ -35,7 +28,7 @@ module.exports = class StatsCommand extends Commando.Command {
 
     // Calculations
     const total = statsData.wins + statsData.loss;
-    const winP = statsData.wins/total*100;
+    const winP = statsData.wins / total * 100;
 
     if (member.roles.cache.has(roleID)) {
       const embed = new MessageEmbed()

@@ -1,18 +1,13 @@
-const qhandler = require('@handlers/queuehandler');
-const Commando = require('discord.js-commando');
+const qhandler = require('@features/queuehandler');
 
-module.exports = class DequeueCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'qdequeue',
-            aliases: ['dequeue', 'leave'],
-            group: 'queue',
-            memberName: 'qdequeue',
-            description: 'removes yourself from ongoing queue',
-        })
-    }
+module.exports = {
+    name: 'qdequeue',
+    aliases: ['dequeue', 'leave'],
+    description: 'removes yourself from ongoing queue',
 
-    async run(message) {
+
+
+    callback: async (message) => {
         qhandler.onLeave(message);
     }
 }

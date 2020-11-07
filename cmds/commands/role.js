@@ -1,19 +1,12 @@
-const Commando = require('discord.js-commando');
 const Discord = require('discord.js');
 
-module.exports = class RoleCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'role',
-            group: 'among us',
-            memberName: 'role',
-            description: 'Assign Among Us role via reaction',
-            clientPermissions: ['MANAGE_ROLES'],
-            userPermissions: ['MANAGE_ROLES'],
-        })
-    }
+module.exports = {
+    name: 'role', // Optional
+    commands: ['role'], // Optional
+    description: 'Assign Among Us role via reaction',
+    requiredPermissions: ['MANAGE_ROLES'],
 
-    async run(message) {
+    callback: async (message) => {
         const embed = new Discord.MessageEmbed()
             .setColor(0xDC143C)
             .setAuthor(`Click reaction to be assigned "amongus" role`)

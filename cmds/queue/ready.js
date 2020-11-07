@@ -1,19 +1,13 @@
-const qhandler = require('@handlers/queuehandler');
-const Commando = require('discord.js-commando');
+const qhandler = require('@features/queuehandler');
 
-module.exports = class ReadyCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'qready',
-            aliases: ['ready', 'next'],
-            group: 'queue',
-            memberName: 'qready',
-            description: "Ping the next persion in queue",
-            argsType: 'multiple',
-        })
-    }
+module.exports = {
+    name: 'qready',
+    aliases: ['ready', 'next'],
+    description: "Ping the next persion in queue",
 
-    async run(message, args) {
+
+
+    callback: async (message, args) => {
         qhandler.onReady(message, args);
     }
 }
