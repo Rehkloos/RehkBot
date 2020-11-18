@@ -1,14 +1,14 @@
 {
-  "name": "queue-bot",
+  "name": "RehkBot",
   "version": "1.0.2",
-  "description": "A bot that handles queues for among us lobbies.",
+  "description": "Discord Admin Bot",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rehkloos/queue-bot.git"
+    "url": "git+https://github.com/Rehkloos/RehkBot.git"
   },
   "author": "Rehkloos",
   "license": "MIT",
