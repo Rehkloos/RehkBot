@@ -1,16 +1,10 @@
-# Among-Us-Bot
-An Among Us Bot built in Discord.js
+# Rehk Bot
+a Discord Bot built in Discord.js for my own discord
 
 [![Add ImposterBot to server](https://img.shields.io/static/v1?label=Add%20ImposterBot&message=to%20server&color=7289DA&logo=Discord&logoColor=white&style=flat-square)](https://discord.com/api/oauth2/authorize?client_id=349236583611891714&permissions=1371630673&scope=bot)
 
 
 **Under heavy development right now! If you find any errors be sure to come here and [create an issue](https://github.com/MrAuro/Among-Us-Bot/issues/new/choose).**
-
-# To Do:
-If you know how to do one of these or have an idea, [make a pull request!](https://github.com/MrAuro/Among-Us-Bot/pulls).
-
-- [ ] Set queue to mongo implement
-- [ ] add ranked win/loss database
 
 ---
 
