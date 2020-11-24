@@ -37,7 +37,7 @@ module.exports = {
                                 }
                             })
                             .catch(e => {
-                                L.err('Error: ' + e);
+                                L.log('Error: ' + e);
                             });
                     });
             } catch (err) {
