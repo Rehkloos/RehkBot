@@ -28,6 +28,7 @@ client.on('ready', async () => {
     .setDisplayName('RehkBot')
     .setColor('0xDC143C')
     .setSyntaxError('Incorrect syntax! Please use {PREFIX}{COMMAND} {ARGUMENTS}')
+    .setCategoryEmoji('Giveaway', '🎉')
 });
 
 
