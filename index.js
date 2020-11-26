@@ -25,6 +25,8 @@ client.on('ready', async () => {
 
   new WOKcmds(client, 'cmds', 'features')
     .setMongoPath(mongoP)
+    .setDisplayName('RehkBot')
+    .setColor('0xDC143C')
     .setSyntaxError('Incorrect syntax! Please use {PREFIX}{COMMAND} {ARGUMENTS}')
 });
 
