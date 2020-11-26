@@ -28,7 +28,7 @@
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.6",
     "superagent": "^6.1.0",
-    "wokcommands": "^1.0.1"
+    "wokcommands": "^1.1.1"
   },
   "_moduleAliases": {
     "@root": ".",
