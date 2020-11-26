@@ -6,7 +6,6 @@ const MPR = require('@events/MusicPlayer');
 
 module.exports = (client) => {
     client.on('ready', () => reqEvent('ready')(client));
-    client.on('rateLimit', reqEvent('rateLimit'));
     linkScanner(client);
     roleClaim(client);
     VSU(client);
