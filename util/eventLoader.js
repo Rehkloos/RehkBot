@@ -3,6 +3,7 @@ const linkScanner = require('@events/linkScanner');
 const roleClaim = require('@events/roleClaim');
 const VSU = require('@events/voiceStateUpdate');
 const MPR = require('@events/MusicPlayer');
+const TWL = require('@events/TWLIVE');
 
 module.exports = (client) => {
     client.on('ready', () => reqEvent('ready')(client));
@@ -10,4 +11,5 @@ module.exports = (client) => {
     roleClaim(client);
     VSU(client);
     MPR(client);
+    TWL(client);
 };
