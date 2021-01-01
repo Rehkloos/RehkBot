@@ -27,7 +27,6 @@ client.on('ready', async () => {
     .setMongoPath(mongoP)
     .setDisplayName('RehkBot')
     .setColor('0xDC143C')
-    .setSyntaxError('Incorrect syntax! Please use {PREFIX}{COMMAND} {ARGUMENTS}')
     .setCategoryEmoji('Giveaway', '🎉')
 });
 
