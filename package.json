@@ -15,7 +15,9 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
     "axios": "^0.21.1",
+    "axios-cookiejar-support": "^1.0.1",
     "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.5",
     "child-process": "^1.0.2",
     "cron": "^1.8.2",
     "deepmerge": "^4.2.2",
@@ -25,6 +27,7 @@
     "express": "^4.17.1",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
+    "fluent-ffmpeg": "^2.1.2",
     "line-reader": "^0.4.0",
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",
@@ -33,9 +36,16 @@
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.6",
     "sequelize": "^6.3.5",
+    "soundcloud-scraper": "^4.0.1",
+    "spotify-url-info": "^2.2.0",
     "sqlite3": "^5.0.0",
     "superagent": "^6.1.0",
-    "wokcommands": "^1.1.5"
+    "tough-cookie": "^4.0.0",
+    "twit": "^2.2.11",
+    "wokcommands": "^1.1.5",
+    "xdate": "^0.8.2",
+    "youtube-sr": "^2.0.5",
+    "ytdl-core": "^4.3.0"
   },
   "_moduleAliases": {
     "@root": ".",
