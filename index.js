@@ -5,15 +5,9 @@ const express = require("express");
 require('module-alias/register');
 require('dotenv').config();
 require('@util/eventLoader')(client);
-const {
-  Player
-} = require("discord-player");
 
 // File imports
 const L = require('@util/logger');
-
-const player = new Player(client);
-client.player = player;
 
 // const prefix = process.env.PREFIX;
 // const owner = process.env.OWNER;
