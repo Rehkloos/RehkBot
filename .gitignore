@@ -3,3 +3,4 @@ db.sqlite
 .env
 .jshintrc
 config.js
+config.json
