@@ -10,6 +10,6 @@ module.exports = (client) => {
     linkScanner(client);
     roleClaim(client);
     VSU(client);
-    MPR(client);
+    // MPR(client);
     TWL(client);
 };
