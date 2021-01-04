@@ -42,7 +42,7 @@
     "superagent": "^6.1.0",
     "tough-cookie": "^4.0.0",
     "twit": "^2.2.11",
-    "wokcommands": "^1.1.5",
+    "wokcommands": "^1.2.0",
     "xdate": "^0.8.2",
     "youtube-sr": "^2.0.5",
     "ytdl-core": "^4.3.0"
